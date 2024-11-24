@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<form id="order_form" class="order_form" action="cap5.php" method="post">
+  <input class="field" type="text" name="name" placeholder="Введіть Ваше ім'я" required="">
+  <input class="field" type="text" name="postname" placeholder="Введіть Ваше прізвище" required="">
+  <input class="field maskatel" type="tel" name="phone" placeholder="Введіть Ваш телефон" required="">
+  <select class="field" name="size" required="">
+    <option value="" disabled selected>Вкажіть розмір</option>
+    <option value="58">58</option>
+  </select>
+  <button class="button order_form_button">Відправити</button>
+</form>
+</div>
+</main>
+<div id="orderModal" class="modal">
+  <span class="close-btn" onclick="closeModal()">&times;</span>
+  <div class="confirmation">Замовлення оформлено. Очікуйте дзвінка.</div>
+  <div class="btn-container">
+    <button class="back-btn" onclick="goToHomePage()">На головну сторінку</button>
+  </div>
+</div>
+<script src="js/jquery.js" type="text/javascript"></script>
+
+<script>
+  function openModal() {
+    const modal = document.getElementById("orderModal");
+    modal.style.display = "block";
+  }
+
+  function closeModal() {
+    const modal = document.getElementById("orderModal");
+    modal.style.display = "none";
+  }
+
+  function submitOrder(event) {
+    event.preventDefault();
+    const name = document.getElementById("name").value;
+    const size = document.getElementById("size").value;
+    const confirmationMessage = `Замовлення оформлено. Очікуйте дзвінка.\nІм'я: ${name}\nРозмір: ${size}`;
+
+    alert(confirmationMessage);
+
+    closeModal();
+    openConfirmationModal();
+  }
+
+  function goToHomePage() {
+    window.location.href = "index.html";
+  }
+
+  function openConfirmationModal() {
+    const modal = document.getElementById("orderModal");
+    modal.style.display = "block";
+    const confirmationText = document.querySelector(".confirmation");
+    confirmationText.style.display = "block";
+  }
+
+  const orderForm = document.getElementById("orderForm");
+  orderForm.addEventListener("submit", submitOrder);
+</script>
+<script src="js/maska-nomera.js" type="text/javascript"></script>
+
+<script>
+  $('.maskatel').mask('+38(099) 999-99-99');
+
+  $.fn.setCursorPosition = function (pos) {
+    if ($(this).get(0).setSelectionRange) {
+      $(this).get(0).setSelectionRange(pos, pos);
+    } else if ($(this).get(0).createTextRange) {
+      var range = $(this).get(0).createTextRange();
+      range.collapse(true);
+      range.moveEnd('character', pos);
+      range.moveStart('character', pos);
+      range.select();
+    }
+  };
+
+
+  $('input[type="tel"]').click(function () {
+    $(this).setCursorPosition(5);
+  });
+</script>
+<footer>
+  <p>&copy; 2023 Howard Shop. Усі права захищені.</p>
+</footer>
+</body>
+
+</html>
